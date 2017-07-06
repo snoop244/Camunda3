@@ -17,6 +17,12 @@ import org.camunda.bpm.engine.ProcessEngines
 import org.camunda.bpm.engine.repository.ProcessDefinition
 import org.camunda.bpm.model.bpmn.Bpmn
 import org.camunda.bpm.model.bpmn.BpmnModelInstance
+import org.camunda.bpm.model.xml.instance.ModelElementInstance;
+import org.camunda.bpm.model.bpmn.instance.ServiceTask
+import org.camunda.bpm.model.bpmn.instance.UserTask
+import org.camunda.bpm.model.xml.test.AbstractModelElementInstanceTest.modelInstance
+
+
 
 
 
@@ -41,6 +47,18 @@ fun queryProcessDefinitions(){
     System.out.printf("process definition for Process_1:1:3 {$processDefinition}")
     val processModel = repositoryService.getProcessModel("Process_1:1:3")
     System.out.printf("process model for Process_1:1:3 {$processModel}")
+    val modelInstance: BpmnModelInstance = Bpmn.readModelFromStream(processModel)
+    System.out.printf("model from stream is: ${modelInstance}")
+    findElementByType(modelInstance)
+}
+
+fun findElementByType(modelInstance: BpmnModelInstance){
+    val userTasks = modelInstance.getModelElementsByType(UserTask::class.java)
+    userTasks.forEach {
+        System.out.printf("a user task named: ${it?.name} with form key: ${it?.camundaFormKey} ")
+    }
+    //System.out.printf("These are the user tasks: ${userTasks}")
+
 }
 
 fun startProcessInstance(){
