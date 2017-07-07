@@ -43,7 +43,7 @@
       <bpmndi:BPMNShape bpmnElement="StartEvent_1" id="Yaoqiang-StartEvent_1">
         <dc:Bounds height="32.0" width="32.0" x="173.0" y="102.0"/>
         <bpmndi:BPMNLabel>
-          <dc:Bounds height="19.84" width="6.0" x="186.0" y="142.06"/>
+          <dc:Bounds height="19.84" width="6.0" x="186.0" y="142.04"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="Task_0c04or1" id="Yaoqiang-Task_0c04or1">
@@ -61,7 +61,7 @@
       <bpmndi:BPMNShape bpmnElement="EndEvent_1on2gwz" id="Yaoqiang-EndEvent_1on2gwz">
         <dc:Bounds height="32.0" width="32.0" x="888.0" y="102.0"/>
         <bpmndi:BPMNLabel>
-          <dc:Bounds height="19.84" width="6.0" x="903.0" y="138.06"/>
+          <dc:Bounds height="19.84" width="6.0" x="903.0" y="138.04"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="SequenceFlow_1vkud01" id="Yaoqiang-SequenceFlow_1vkud01">

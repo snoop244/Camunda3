@@ -23,11 +23,6 @@ import org.camunda.bpm.model.bpmn.instance.UserTask
 import org.camunda.bpm.model.xml.test.AbstractModelElementInstanceTest.modelInstance
 
 
-
-
-
-
-
 @SpringBootApplication
 @EnableProcessApplication //requires processes.xml in META-INF or won't find processes in resources
 class Camunda3Application

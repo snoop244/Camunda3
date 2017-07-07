@@ -27,6 +27,8 @@ package com.wesstrong.Camunda3
 //Freemarker: here is a d-zone article on creating a webservice with Freemarker: https://dzone.com/articles/automated-webservice-code-generation-using-freemar
 //A good-seeming book on Freemarker: https://www.safaribooksonline.com/library/view/instant-freemarker-starter/9781782163824/ch01s03.html#ch01lvl2sec07
 //Another good Freemarker + Spring Boot tutorial: http://zetcode.com/articles/springbootfreemarker/
+//Thymeleaf text generator: http://blog.codeleak.pl/2017/03/getting-started-with-thymeleaf-3-text.html
+//Nicely structured Kotlin + Spring + Thymeleaf: article:https://turreta.com/spring-mvc-with-spring-boot-kotlin-and-thymeleaf/   code: https://github.com/Turreta/Spring-MVC-with-Spring-Boot-Kotlin-and-Thymeleaf
 //Maybe use Kotlin directly or Kotlin + Gradle
 //Here is a good DOM/XML parsing example: http://www.tutorialspoint.com/java_xml/java_dom_parse_document.htm
 //!!KotlinPoet from Square generates Kotlin!! https://github.com/square/kotlinpoet
