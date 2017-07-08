@@ -22,6 +22,7 @@ package com.wesstrong.Camunda3
 //form example of the DSL (by the guy that does VoK, but not VoK): https://github.com/mvysny/karibu-dsl/blob/master/example-v8/src/main/kotlin/com/github/vok/karibudsl/example/form/FormView.kt
 //A Camunda JSF version: https://github.com/camunda/camunda-bpm-examples/tree/master/bpmn-model-api/generate-jsf-form
 //for the model api: https://github.com/camunda/camunda-bpm-examples/tree/master/bpmn-model-api/parse-bpmn
+//Vaadin + Kotlin + SpringBoot scaffolding: code: https://github.com/phauer/blog-related/tree/master/kotlin-spring-boot-vaadin-scaffolding article: https://kotlin.link/articles/Kotlin-in-Practice-with-Spring-Boot-and-Vaadin.html
 
 //CODE GENERATION
 //Freemarker: here is a d-zone article on creating a webservice with Freemarker: https://dzone.com/articles/automated-webservice-code-generation-using-freemar
