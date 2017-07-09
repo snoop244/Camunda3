@@ -38,9 +38,9 @@ fun queryProcessDefinitions(){
             .asc()
             .list()
     System.out.printf("from process definition query: {$processDefinitions")
-    val processDefinition = repositoryService.getProcessDefinition("Process_1:1:3") //TODO returns processDefinitionEntity, figure out how to get variables
-    System.out.printf("process definition for Process_1:1:3 {$processDefinition}")
-    val processModel = repositoryService.getProcessModel("Process_1:1:3")
+    val processDefinition = repositoryService.getProcessDefinition("Process_1:1:6") //TODO returns processDefinitionEntity, figure out how to get variables
+    System.out.printf("process definition for Process_1:1:6 {$processDefinition}")
+    val processModel = repositoryService.getProcessModel("Process_1:1:6")
     System.out.printf("process model for Process_1:1:3 {$processModel}")
     val modelInstance: BpmnModelInstance = Bpmn.readModelFromStream(processModel)
     System.out.printf("model from stream is: ${modelInstance}")
@@ -50,7 +50,7 @@ fun queryProcessDefinitions(){
 fun findElementByType(modelInstance: BpmnModelInstance){
     val userTasks = modelInstance.getModelElementsByType(UserTask::class.java)
     userTasks.forEach {
-        System.out.printf("a user task named: ${it?.name} with form key: ${it?.camundaFormKey} ")
+        System.out.printf("a user task named: ${it?.name} and ID: ${it?.id} with form key: ${it?.camundaFormKey} ")
     }
     //System.out.printf("These are the user tasks: ${userTasks}")
 
@@ -59,8 +59,8 @@ fun findElementByType(modelInstance: BpmnModelInstance){
 fun startProcessInstance(){
     val processEngine: ProcessEngine? = ProcessEngines.getProcessEngine("default")
     val runtimeService: RuntimeService? = processEngine?.runtimeService  //docs say the RepositoryService deploys to the engine... I guess that is true if the processes aren't auto-deployed
-    runtimeService?.createProcessInstanceById("Process_1:1:3") //need to create and then start process instance
-    runtimeService?.startProcessInstanceById("Process_1:1:3")
+    runtimeService?.createProcessInstanceById("Process_1:1:6") //need to create and then start process instance
+    runtimeService?.startProcessInstanceById("Process_1:1:6")
     val processInstances = runtimeService!!.createProcessInstanceQuery()
             .active()
             .list()
