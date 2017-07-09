@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<cmmn:definitions xmlns:dc="http://www.omg.org/spec/CMMN/20151109/DC" xmlns:di="http://www.omg.org/spec/CMMN/20151109/DI" xmlns:cmmndi="http://www.omg.org/spec/CMMN/20151109/CMMNDI" xmlns:cmmn="http://www.omg.org/spec/CMMN/20151109/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Test" targetNamespace="http://bpmn.io/schema/cmmn" exporter="Camunda Modeler" exporterVersion="1.5.1">
+<cmmn:definitions xmlns:dc="http://www.omg.org/spec/CMMN/20151109/DC" xmlns:di="http://www.omg.org/spec/CMMN/20151109/DI" xmlns:cmmndi="http://www.omg.org/spec/CMMN/20151109/CMMNDI" xmlns:cmmn="http://www.omg.org/spec/CMMN/20151109/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Test" targetNamespace="http://bpmn.io/schema/cmmn" exporter="Camunda Modeler" exporterVersion="1.8.2">
   <cmmn:case id="Claim_Case_1" name="Claim">
     <cmmn:casePlanModel id="Claim_CasePlanModel_1" name="Claim">
       <cmmn:planItem id="Claim_Start_PlanItem_1" name="Claim_Start" definitionRef="ProcessTask_1my85av" />
       <cmmn:planItem id="PlanItem_1uv9gbs" definitionRef="Milestone_1l3qyh6">
+        <cmmn:documentation id="Documentation_0qlt8d2">This is documentation about Claim Started</cmmn:documentation>
         <cmmn:entryCriterion id="EntryCriterion_03ry8er" sentryRef="Sentry_03j0t40" />
       </cmmn:planItem>
       <cmmn:planItem id="PlanItem_1by0t4w" definitionRef="Stage_0y4jec5">
@@ -28,13 +29,18 @@
 </cmmn:planItemOnPart>
       </cmmn:sentry>
       <cmmn:processTask id="ProcessTask_1my85av" processRef="claim_start.bpmn" />
-      <cmmn:milestone id="Milestone_1l3qyh6" name="Claim_Started" />
+      <cmmn:milestone id="Milestone_1l3qyh6" name="Claim_Started">
+        <cmmn:documentation id="Documentation_12yofcv">This is Claim Started documentation</cmmn:documentation>
+      </cmmn:milestone>
       <cmmn:stage id="Stage_0y4jec5" name="FNOL">
         <cmmn:planItem id="PlanItem_13eo9ak" definitionRef="ProcessTask_14o3cmw" />
         <cmmn:planItem id="PlanItem_13cc5m0" definitionRef="Milestone_1g2825j">
+          <cmmn:documentation id="Documentation_1po02ut">This is documentation about FNOL Started</cmmn:documentation>
           <cmmn:entryCriterion id="EntryCriterion_13bwzqg" sentryRef="Sentry_1l7r7tu" />
         </cmmn:planItem>
-        <cmmn:planItem id="PlanItem_1j78s2p" definitionRef="Milestone_034wxgp" />
+        <cmmn:planItem id="PlanItem_1j78s2p" name="FNOL_Done" definitionRef="Milestone_034wxgp">
+          <cmmn:documentation id="Documentation_0kie1c1">This is documenation about FNOL Done</cmmn:documentation>
+        </cmmn:planItem>
         <cmmn:sentry id="Sentry_1l7r7tu">
           <cmmn:planItemOnPart id="PlanItemOnPart_0398076" sourceRef="PlanItem_13eo9ak">          <cmmn:standardEvent>complete</cmmn:standardEvent>
 </cmmn:planItemOnPart>

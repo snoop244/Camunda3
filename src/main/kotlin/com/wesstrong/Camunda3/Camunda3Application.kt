@@ -17,9 +17,13 @@ import org.camunda.bpm.engine.ProcessEngines
 import org.camunda.bpm.engine.repository.ProcessDefinition
 import org.camunda.bpm.model.bpmn.Bpmn
 import org.camunda.bpm.model.bpmn.BpmnModelInstance
+import org.camunda.bpm.model.bpmn.instance.Documentation
 import org.camunda.bpm.model.xml.instance.ModelElementInstance;
 import org.camunda.bpm.model.bpmn.instance.ServiceTask
 import org.camunda.bpm.model.bpmn.instance.UserTask
+import org.camunda.bpm.model.cmmn.Cmmn
+import org.camunda.bpm.model.cmmn.CmmnModelInstance
+import org.camunda.bpm.model.cmmn.instance.Milestone
 import org.camunda.bpm.model.xml.test.AbstractModelElementInstanceTest.modelInstance
 
 
@@ -44,17 +48,43 @@ fun queryProcessDefinitions(){
     System.out.printf("process model for Process_1:1:3 {$processModel}")
     val modelInstance: BpmnModelInstance = Bpmn.readModelFromStream(processModel)
     System.out.printf("model from stream is: ${modelInstance}")
-    findElementByType(modelInstance)
+    findProcessElementByType(modelInstance)
 }
 
-fun findElementByType(modelInstance: BpmnModelInstance){
+fun findProcessElementByType(modelInstance: BpmnModelInstance){
     val userTasks = modelInstance.getModelElementsByType(UserTask::class.java)
     userTasks.forEach {
         System.out.printf("a user task named: ${it?.name} and ID: ${it?.id} with form key: ${it?.camundaFormKey} ")
     }
-    //System.out.printf("These are the user tasks: ${userTasks}")
-
 }
+
+fun queryCaseDefinitions() : Collection<Milestone>{
+    val processEngine: ProcessEngine? = ProcessEngines.getProcessEngine("default")
+    val repositoryService: RepositoryService? = processEngine?.repositoryService  //usually first service to be called and used per: https://docs.camunda.org/manual/7.6/user-guide/process-engine/process-engine-api/
+    val caseDefinitions = repositoryService!!.createCaseDefinitionQuery()  //fluent query
+            //.processDefinitionKey("invoice")
+            .orderByCaseDefinitionVersion()
+            .asc()
+            .list()
+    System.out.printf("from case definition query: {$caseDefinitions")
+    val caseDefinition = repositoryService.getCaseDefinition("Claim_Case_1:1:9") //TODO returns processDefinitionEntity, figure out how to get variables
+    System.out.printf("process definition for Claim_Case_1:1:9 {$caseDefinition}")
+    val caseModel = repositoryService.getCaseModel("Claim_Case_1:1:9")
+    System.out.printf("process model for Claim_Case_1:1:9 {$caseModel}")
+    val caseModelInstance: CmmnModelInstance = Cmmn.readModelFromStream(caseModel)
+    System.out.printf("case model from stream is: $caseModelInstance")
+    val milestones = findCaseElementByType(caseModelInstance)
+    return milestones  //Steve: these calls are not structured well
+}
+
+fun findCaseElementByType(caseModelInstance: CmmnModelInstance) : Collection<Milestone> {
+    val milestones = caseModelInstance.getModelElementsByType(Milestone::class.java)
+    milestones.forEach {
+        System.out.printf("a milestone named: ${it?.name} and ID: ${it?.id} ")
+    }
+    return milestones
+}
+
 
 fun startProcessInstance(){
     val processEngine: ProcessEngine? = ProcessEngines.getProcessEngine("default")
@@ -71,15 +101,15 @@ fun startProcessInstance(){
 fun showFormVariables(){
     val processEngine: ProcessEngine? = ProcessEngines.getProcessEngine("default")
     val formService: FormService? = processEngine?.formService
-    val formVariables = formService?.getTaskFormVariables("7")
-    System.out.printf("form variables for task 7: {$formVariables}")
+    val formVariables = formService?.getTaskFormVariables("13")
+    System.out.printf("form variables for task 13: {$formVariables}")
 
 }
 
 fun queryTasks(){
     val processEngine: ProcessEngine? = ProcessEngines.getProcessEngine("default")
     val taskService: TaskService? = processEngine?.taskService
-    taskService!!.setAssignee("7","demo") //works!!
+    taskService!!.setAssignee("13","demo") //works!!
     val tasks = taskService.createTaskQuery()  //fluent approach for querying tasks
             .taskAssignee("demo")
             .orderByDueDate().asc()
@@ -91,6 +121,7 @@ fun queryTasks(){
 fun main(args: Array<String>) {
     SpringApplication.run(Camunda3Application::class.java, *args)
     queryProcessDefinitions()
+    queryCaseDefinitions()
     startProcessInstance()
     showFormVariables()
     queryTasks()
