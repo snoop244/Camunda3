@@ -3,8 +3,8 @@
 Uses Camunda Model API to pull in CMMN definition.
 
 ## Entities
-1. Create domain entity for each CMMN Milestone.  The primary entities are the case-named entity and its children, designated with the "in" keyword.
-2. Initialize a Mongo repository and Kafka (sub)Topic for each Milestone/Entity.  Parent Entity will likely be kept minimal and only hold data generated outside of the stages (for the most part)
+1. Create domain entity for each CMMN Milestone.  The primary entities are the case-named entity (parent) and its children, designated with the "in" keyword. Note that CMMN "Stages" are being used to approximate Bounded Contexts and, as such, Stages should own their own data to the extent possible. Parent Entity will likely be kept minimal and only hold data generated outside of the stages (for the most part)
+2. Initialize a Mongo repository and Kafka (sub)Topic for each Milestone/Entity.  
 3. Reserved word "in" results in an child entity whose records can be directly accessed from the parent view (e.g. "Claim in FNOL" suggests that the claim is in the FNOL stage)
 4. Other entities that do not use "in" are shown as related items in core entity views (e.g. Staffing would be related to the Claim entity, not a child of it.)
 
