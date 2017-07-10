@@ -18,7 +18,7 @@ class MilestonesController {
 
     @RequestMapping("/milestones")
     fun milestones (model: Model) : String { //STEVE not sure if this should be string or collection of milestones
-        model.addAttribute("milestones", queryCaseDefinitions())
+        model.addAttribute("milestones", queryCaseDefMilestones())
         return "milestones"
     }
 

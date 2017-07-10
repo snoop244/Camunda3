@@ -58,45 +58,23 @@ fun findProcessElementByType(modelInstance: BpmnModelInstance){
     }
 }
 
-fun queryCaseDefinitions() : Collection<Milestone>{
+
+fun queryCaseDefMilestones() : Collection<Milestone>{
     val processEngine: ProcessEngine? = ProcessEngines.getProcessEngine("default")
     val repositoryService: RepositoryService? = processEngine?.repositoryService  //usually first service to be called and used per: https://docs.camunda.org/manual/7.6/user-guide/process-engine/process-engine-api/
-    val caseDefinitions = repositoryService!!.createCaseDefinitionQuery()  //fluent query
-            //.processDefinitionKey("invoice")
-            .orderByCaseDefinitionVersion()
-            .asc()
-            .list()
-    System.out.printf("from case definition query: {$caseDefinitions")
-    val caseDefinition = repositoryService.getCaseDefinition("Claim_Case_1:1:9") //TODO returns processDefinitionEntity, figure out how to get variables
-    System.out.printf("process definition for Claim_Case_1:1:9 {$caseDefinition}")
-    val caseModel = repositoryService.getCaseModel("Claim_Case_1:1:9")
+    val caseModel = repositoryService?.getCaseModel("Claim_Case_1:1:9")
     System.out.printf("process model for Claim_Case_1:1:9 {$caseModel}")
     val caseModelInstance: CmmnModelInstance = Cmmn.readModelFromStream(caseModel)
     System.out.printf("case model from stream is: $caseModelInstance")
-    val milestones = findCaseElementByType(caseModelInstance)
-    return milestones  //Steve: these calls are not structured well
-}
-
-fun findCaseElementByType(caseModelInstance: CmmnModelInstance) : Collection<Milestone> {
     val milestones = caseModelInstance.getModelElementsByType(Milestone::class.java)
     milestones.forEach {
         System.out.printf("a milestone named: ${it?.name} and ID: ${it?.id} ")
     }
     return milestones
+
 }
 
-
-fun startProcessInstance(){
-    val processEngine: ProcessEngine? = ProcessEngines.getProcessEngine("default")
-    val runtimeService: RuntimeService? = processEngine?.runtimeService  //docs say the RepositoryService deploys to the engine... I guess that is true if the processes aren't auto-deployed
-    runtimeService?.createProcessInstanceById("Process_1:1:6") //need to create and then start process instance
-    runtimeService?.startProcessInstanceById("Process_1:1:6")
-    val processInstances = runtimeService!!.createProcessInstanceQuery()
-            .active()
-            .list()
-    System.out.printf("process instances that are active: {$processInstances}")
-}
-
+//TODO clean up above two functions
 
 fun showFormVariables(){
     val processEngine: ProcessEngine? = ProcessEngines.getProcessEngine("default")
@@ -106,25 +84,13 @@ fun showFormVariables(){
 
 }
 
-fun queryTasks(){
-    val processEngine: ProcessEngine? = ProcessEngines.getProcessEngine("default")
-    val taskService: TaskService? = processEngine?.taskService
-    taskService!!.setAssignee("13","demo") //works!!
-    val tasks = taskService.createTaskQuery()  //fluent approach for querying tasks
-            .taskAssignee("demo")
-            .orderByDueDate().asc()
-            .list()  //produces [Task{7]]
-    System.out.printf("these are tasks for user demo: {$tasks}")
-
-}
 
 fun main(args: Array<String>) {
     SpringApplication.run(Camunda3Application::class.java, *args)
     queryProcessDefinitions()
-    queryCaseDefinitions()
-    startProcessInstance()
+    queryCaseDefMilestones()
     showFormVariables()
-    queryTasks()
+
 
 
 
